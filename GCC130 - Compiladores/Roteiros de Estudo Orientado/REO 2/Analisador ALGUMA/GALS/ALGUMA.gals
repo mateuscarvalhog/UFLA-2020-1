@@ -1,0 +1,37 @@
+#Options
+GenerateScanner = true
+GenerateParser = false
+Language = Java
+ScannerName = Lexico
+ScannerCaseSensitive = true
+ScannerTable = Hardcode
+Input = Stream
+#RegularDefinitions
+letras : [a-zA-Z]
+numeros : [0-9]
+ws : [\n\s\r\t]
+#Tokens
+ : {ws}
+DEC : DECLARACOES
+ALG : ALGORITMO
+INT : INTEIRO
+REA : REAL
+ATR : ATRIBUIR
+A : A
+LER : LER
+IMP : IMPRIMIR
+SE : SE
+ENT : ENTAO
+ENQ : ENQUANTO
+INI : INICIO
+FIM : FIM
+OpArit : (\+|\-|\*|/)
+OpRel : (<|<=|=|>=|>|<>)
+OpBool : (E|OU)
+Delim : :
+AP : \(
+FP : \)
+Var : [a-z]({letras}|{numeros})*
+NumI : {numeros}+
+NumR : {numeros}+,{numeros}+
+Str : \"({letras}|{numeros})*\"

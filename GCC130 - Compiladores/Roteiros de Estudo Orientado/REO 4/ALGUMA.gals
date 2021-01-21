@@ -1,0 +1,104 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Hardcode
+Input = Stream
+Parser = LL
+#RegularDefinitions
+letras : [a-zA-Z]
+numeros : [0-9]
+ws : [\n\s\r\t]
+#Tokens
+ : {ws}
+DEC : DECLARACOES
+ALG : ALGORITMO
+INT : INTEIRO
+REA : REAL
+ATR : ATRIBUIR
+A : A
+LER : LER
+IMP : IMPRIMIR
+SE : SE
+ENQ : ENQUANTO
+INI : INICIO
+FIM : FIM
+OpArit1 : (\+|\-)
+OpArit2 : (\*|/)
+OpRel : (<|<=|=|>=|>|<>)
+OpBool : (E|OU)
+Delim : :
+AP : \(
+FP : \)
+Var : [a-z]({letras}|{numeros})*
+NumI : {numeros}+
+NumR : {numeros}+,{numeros}+
+Str : \"({letras}|{numeros})*\"
+#NonTerminals
+<PROGRAMA>
+<PROGRAMAAUX>
+<BLOCODEC>
+<DECS>
+<TIPO>
+<BLOCOALG>
+<STATEMENTS>
+<STMNT>
+<IO>
+<EXPBOOL>
+<EXPBOOLAUX>
+<EXPREL>
+<EXPRELAUX>
+<EXP>
+<EXPAUX>
+<EXP2>
+<EXP2AUX>
+<EXP3>
+<TERMO>
+<ATRIBUICAO>
+<IF>
+<WHILE>
+<CONDICAO>
+<ESCOPO>
+#Grammar
+<PROGRAMA> ::= Delim <PROGRAMAAUX>;
+<PROGRAMAAUX> ::= <BLOCODEC> Delim <BLOCOALG> | <BLOCOALG>;
+<BLOCODEC> ::= DEC <DECS>;
+<DECS> ::= Var Delim <TIPO> <DECS> | î;
+<TIPO> ::= INT | REA;
+<BLOCOALG> ::= ALG <STATEMENTS>;
+<STATEMENTS> ::= <STMNT> <STATEMENTS> 
+		| î;
+<STMNT> ::= 	<IO> 
+		| <EXPBOOL>
+		| <ATRIBUICAO>
+		| <IF> 
+		| <WHILE>;
+
+<IO> ::= LER <TERMO> 
+	| IMP <TERMO>;
+<EXPBOOL> ::= <EXPREL> <EXPBOOLAUX>;
+<EXPBOOLAUX> ::= OpBool <EXPBOOL>
+		| î;
+<EXPREL> ::= <EXP> <EXPRELAUX>;
+<EXPRELAUX> ::= OpRel <EXP>
+		| î;
+<EXP> ::= <EXP2> <EXPAUX>;
+<EXPAUX> ::= OpArit1 <EXP2> <EXPAUX> 
+		| î;
+<EXP2> ::= <EXP3> <EXP2AUX>;
+<EXP2AUX> ::= OpArit2 <EXP3> <EXP2AUX>
+		| î;
+<EXP3> ::= AP <EXP> FP
+	| <TERMO>;
+<TERMO> ::= NumI
+	| NumR
+	| Var
+	| Str;
+<ATRIBUICAO> ::= ATR <EXP> A Var;
+<IF> ::= SE <EXPBOOL> <ESCOPO>; 
+<WHILE> ::= ENQ <EXPBOOL> <ESCOPO>;
+<ESCOPO> ::= INI <STATEMENTS> FIM;

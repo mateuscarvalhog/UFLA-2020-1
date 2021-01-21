@@ -1,0 +1,21 @@
+: DECLARACOES
+	n : INTEIRO
+	soma : INTEIRO
+	ultimo : INTEIRO
+	penultimo : INTEIRO
+	aux : INTEIRO
+
+: ALGORITMO
+	LER n
+	ATRIBUIR 0 A penultimo
+	ATRIBUIR 1 A ultimo
+	ATRIBUIR 1 A soma
+	ENQUANTO n > 0
+		INICIO
+			ATRIBUIR penultimo + ultimo A aux
+			ATRIBUIR ultimo A penultimo
+			ATRIBUIR aux A ultimo
+			ATRIBUIR soma + aux A soma
+			ATRIBUIR n - 1 A n
+		FIM
+	IMPRIMIR soma
